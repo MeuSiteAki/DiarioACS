@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento de Gestantes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #4caf50;
+            padding: 8px;
+        }
+        th {
+            background-color: #a5d6a7;
+        }
+        form {
+            margin: 20px auto;
+            display: inline-block;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 200px;
+            padding: 8px;
+            margin: 0 auto;
+            display: block;
+            border: 1px solid #4caf50;
+            border-radius: 4px;
+            text-align: center;
+        }
+        input[type="checkbox"] {
+            width: 25px; /* Aumentando o tamanho do checkbox */
+            height: 25px; /* Aumentando o tamanho do checkbox */
+            margin: 10px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #388e3c;
+        }
+        img {
+            width: 200px;
+        }
+        .f1 {
+            background-color: #15dd1f;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        a{
+            font-family: Verdana;
+            font-size: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="f1"><img src="forma-o-inicial-de-agentes-comunit-rios-de-sa-de.jpg" alt=""></div>
+    <a href="index4.html">Voltar ao início</a>
+    <h1>Acompanhamento de Gestantes</h1>
+    <form id="formGestante">
+        <label for="nome">Nome da Gestante:</label>
+        <input type="text" id="nome" required>
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" required>
+        <label for="dataConsulta">Data da Consulta:</label>
+        <input type="date" id="dataConsulta" required>
+        
+        <label style="font-size: 25px;">Exames Realizados:</label><br>
+        <input type="checkbox" id="exame1" value="Ultrassom">
+        <label for="exame1">Ultrassom</label>
+        <input type="checkbox" id="exame2" value="Exame de Sangue">
+        <label for="exame2">Exame de Sangue</label>
+        <input type="checkbox" id="exame3" value="Teste de Glicose">
+        <label for="exame3">Exames Preventivo</label>
+        <button type="submit">Salvar Informações</button>
+    </form>
+
+    <h2>Informações Salvas</h2>
+    <table id="tabelaGestantes">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Data da Consulta</th>
+                <th>Exames Realizados</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table><br>
+    <button id="btnSalvarPNG">Salvar Tabela como PNG</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        const tabela = document.getElementById('tabelaGestantes').getElementsByTagName('tbody')[0];
+
+        // Carregar dados do localStorage
+        window.onload = function() {
+            const gestantes = JSON.parse(localStorage.getItem('gestantes')) || [];
+            gestantes.forEach(gestante => adicionarLinha(gestante));
+        };
+
+        document.getElementById('formGestante').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const idade = document.getElementById('idade').value;
+            const dataConsulta = document.getElementById('dataConsulta').value;
+            const exames = [];
+            if (document.getElementById('exame1').checked) exames.push(document.getElementById('exame1').value);
+            if (document.getElementById('exame2').checked) exames.push(document.getElementById('exame2').value);
+            if (document.getElementById('exame3').checked) exames.push(document.getElementById('exame3').value);
+            
+            const gestante = { nome, idade, dataConsulta, exames: exames.join(', ') };
+            adicionarLinha(gestante);
+            salvarDados(gestante);
+            document.getElementById('formGestante').reset();
+        });
+
+        function adicionarLinha(gestante) {
+            const novaLinha = tabela.insertRow();
+            novaLinha.insertCell(0).textContent = gestante.nome;
+            novaLinha.insertCell(1).textContent = gestante.idade;
+            novaLinha.insertCell(2).textContent = gestante.dataConsulta;
+            novaLinha.insertCell(3).textContent = gestante.exames;
+
+            const cellAcoes = novaLinha.insertCell(4);
+            const btnEditar = document.createElement('button');
+            btnEditar.textContent = 'Editar';
+            btnEditar.onclick = () => editarLinha(novaLinha, gestante);
+            cellAcoes.appendChild(btnEditar);
+
+            const btnApagar = document.createElement('button');
+            btnApagar.textContent = 'Apagar';
+            btnApagar.onclick = () => apagarLinha(novaLinha, gestante);
+            cellAcoes.appendChild(btnApagar);
+        }
+
+        function salvarDados(gestante) {
+            const gestantes = JSON.parse(localStorage.getItem('gestantes')) || [];
+            gestantes.push(gestante);
+            localStorage.setItem('gestantes', JSON.stringify(gestantes));
+        }
+
+        function editarLinha(linha, gestante) {
+            document.getElementById('nome').value = gestante.nome;
+            document.getElementById('idade').value = gestante.idade;
+            document.getElementById('dataConsulta').value = gestante.dataConsulta;
+            document.getElementById('exame1').checked = gestante.exames.includes('Ultrassom');
+            document.getElementById('exame2').checked = gestante.exames.includes('Exame de Sangue');
+            document.getElementById('exame3').checked = gestante.exames.includes('Teste de Glicose');
+            apagarLinha(linha, gestante);
+        }
+
+        function apagarLinha(linha, gestante) {
+            tabela.deleteRow(linha.rowIndex - 1);
+            const gestantes = JSON.parse(localStorage.getItem('gestantes')) || [];
+            const novosGestantes = gestantes.filter(g => g.nome !== gestante.nome || g.dataConsulta !== gestante.dataConsulta);
+            localStorage.setItem('gestantes', JSON.stringify(novosGestantes));
+        }
+
+        document.getElementById('btnSalvarPNG').addEventListener('click', function() {
+            html2canvas(document.getElementById('tabelaGestantes')).then(function(canvas) {
+                const link = document.createElement('a');
+                link.download = 'tabela_gestantes.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        });
+    </script>
+</body>
+</html>

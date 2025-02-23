@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agente de Saúde Digital</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        text-align: center;
+    }
+
+    h1, h2, h3 {
+        color: #B22222; /* Vermelho escuro */
+    }
+
+    nav {
+        margin-bottom: 20px;
+    }
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    nav ul li {
+        display: inline;
+        margin: 0 15px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: #FF4500; /* Laranja avermelhado */
+        font-size: 20px;
+    }
+
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin: 10px 0 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="checkbox"] {
+        width: 50%;
+        padding: 8px;
+        margin-bottom: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    input[type="checkbox"] {
+            width: 25px; /* Aumentando o tamanho do checkbox */
+            height: 25px; /* Aumentando o tamanho do checkbox */
+        
+        }
+    button {
+        background-color: #FF4500; /* Laranja avermelhado */
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #FF6347; /* Tomate */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #ff0703; /* Rosa claro */
+        color: white;
+    }
+    label{
+        text-align: center;
+    }
+    h2{
+        text-align: center;
+    }
+    h1{
+        text-align: center;
+        font-size: 40px;
+    }
+    img{
+        width: 200px;
+    }
+    .f1{
+        background-color: #dd1515;
+        padding: 5px;
+        border-radius: 10px;
+    }
+</style>
+<body>
+    <div class="f1"><img src="forma-o-inicial-de-agentes-comunit-rios-de-sa-de.jpg" alt=""></div>
+    <h1>Agente de Saúde Digital</h1>
+    <nav>
+        <ul>
+            <li><a style="background-color: #a08300; color: white;
+            padding: 3px; border-radius: 10px;" href="index.html">Voltar ao Início</a></li>
+            <li><a href="index2.html">Gestantes</a></li>
+            <li><a href="index3.html">Crianças</a></li>
+        </ul>
+    </nav>
+    <form id="form-paciente">
+        <h2>Informações do(a) Morador(a)</h2>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" >
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" >
+
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" >
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" >
+
+        <label for="familia">Família:</label>
+        <input type="text" id="familia" >
+
+        <label for="sus">Número do Cartão do SUS:</label>
+        <input type="text" id="sus" >
+
+        <label for="remedios">Remédios Diários:</label>
+        <input type="text" id="remedios" >
+
+        <label for="diabetico">Diabético:</label>
+        <input type="checkbox" id="diabetico">
+
+        <label for="hipertenso">Hipertenso:</label>
+        <input type="checkbox" id="hipertenso">
+
+        <button style="background-color: green;" type="submit">Salvar Informações</button>
+    </form>
+
+    <h2>Lista de Moradores</h2>
+    <input type="text" id="buscar-familia" placeholder="Buscar por Família">
+    <button style="background-color: blue;" id="btn-buscar-familia">Buscar</button><br>
+    <table id="tabela-pacientes"><br>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>Família</th>
+                <th>Número do SUS</th>
+                <th>Remédios Diários</th>
+                <th>Diabético</th>
+                <th>Hipertenso</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Os dados dos pacientes serão inseridos aqui -->
+        </tbody>
+    </table><br>
+
+    <button id="btn-salvar-png">Salvar Tabela como PNG</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        const pacientes = JSON.parse(localStorage.getItem('pacientes')) || [];
+
+        function atualizarTabela(familiaFiltro = '') {
+            const tabela = document.getElementById('tabela-pacientes').getElementsByTagName('tbody')[0];
+            tabela.innerHTML = '';
+            const pacientesFiltrados = familiaFiltro ? pacientes.filter(p => p.familia.includes(familiaFiltro)) : pacientes;
+            pacientesFiltrados.sort((a, b) => a.familia.localeCompare(b.familia));
+            pacientesFiltrados.forEach((paciente, index) => {
+                const novaLinha = tabela.insertRow();
+                novaLinha.insertCell(0).textContent = paciente.nome;
+                novaLinha.insertCell(1).textContent = paciente.idade;
+                novaLinha.insertCell(2).textContent = paciente.telefone;
+                novaLinha.insertCell(3).textContent = paciente.endereco;
+                novaLinha.insertCell(4).textContent = paciente.familia;
+                novaLinha.insertCell(5).textContent = paciente.sus;
+                novaLinha.insertCell(6).textContent = paciente.remedios;
+                novaLinha.insertCell(7).textContent = paciente.diabetico;
+                novaLinha.insertCell(8).textContent = paciente.hipertenso;
+
+                const acoesCell = novaLinha.insertCell(9);
+                const btnEditar = document.createElement('button');
+                btnEditar.textContent = 'Editar';
+                btnEditar.onclick = () => {
+                    editarPaciente(index);
+                    Swal.fire('Edição!');
+                };
+                acoesCell.appendChild(btnEditar);
+
+                const btnApagar = document.createElement('button');
+                btnApagar.textContent = 'Apagar';
+                btnApagar.onclick = () => {
+                    apagarPaciente(index);
+                    Swal.fire('Paciente apagado com sucesso!');
+                };
+                acoesCell.appendChild(btnApagar);
+            });
+        }
+
+        function salvarPaciente(paciente) {
+            pacientes.push(paciente);
+            localStorage.setItem('pacientes', JSON.stringify(pacientes));
+            atualizarTabela();
+            Swal.fire('Informações salvas com sucesso!');
+        }
+
+        function editarPaciente(index) {
+            const paciente = pacientes[index];
+            document.getElementById('nome').value = paciente.nome;
+            document.getElementById('idade').value = paciente.idade;
+            document.getElementById('telefone').value = paciente.telefone;
+            document.getElementById('endereco').value = paciente.endereco;
+            document.getElementById('familia').value = paciente.familia;
+            document.getElementById('sus').value = paciente.sus;
+            document.getElementById('remedios').value = paciente.remedios;
+            document.getElementById('diabetico').checked = paciente.diabetico === 'Sim';
+            document.getElementById('hipertenso').checked = paciente.hipertenso === 'Sim';
+            pacientes.splice(index, 1);
+            localStorage.setItem('pacientes', JSON.stringify(pacientes));
+            atualizarTabela();
+        }
+
+        function apagarPaciente(index) {
+            pacientes.splice(index, 1);
+            localStorage.setItem('pacientes', JSON.stringify(pacientes));
+            atualizarTabela();
+        }
+
+        document.getElementById('form-paciente').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const paciente = {
+                nome: document.getElementById('nome').value,
+                idade: document.getElementById('idade').value,
+                telefone: document.getElementById('telefone').value,
+                endereco: document.getElementById('endereco').value,
+                familia: document.getElementById('familia').value,
+                sus: document.getElementById('sus').value,
+                remedios: document.getElementById('remedios').value,
+                diabetico: document.getElementById('diabetico').checked ? 'Sim' : 'Não',
+                hipertenso: document.getElementById('hipertenso').checked ? 'Sim' : 'Não'
+            };
+
+            salvarPaciente(paciente);
+            document.getElementById('form-paciente').reset();
+        });
+
+        document.getElementById('btn-buscar-familia').addEventListener('click', function() {
+            const familiaFiltro = document.getElementById('buscar-familia').value;
+            atualizarTabela(familiaFiltro);
+        });
+
+        document.getElementById('btn-salvar-png').addEventListener('click', function() {
+            html2canvas(document.getElementById('tabela-pacientes')).then(function(canvas) {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'tabela_pacientes.png';
+                link.click();
+                Swal.fire('Tabela salva como PNG com sucesso!');
+            });
+        });
+
+        atualizarTabela();
+    </script>
+</body>
+</html>

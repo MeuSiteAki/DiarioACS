@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento Semanal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 50px rgb(0, 0, 0);
+        text-align: center;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+    }
+
+    input[type="date"] {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #bbb;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    button {
+        width: 30%;
+        padding: 10px;
+        background-color: #c70000;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    button:hover {
+        background-color: #ff0000;
+    }
+
+    .checkbox-sim {
+        accent-color: green;
+    }
+
+    .checkbox-nao {
+        accent-color: red;
+    }
+    img{
+        width: 200px;
+    }
+    .f1{
+        background-color: #a39b9b;
+        padding: 5px;
+        border-radius: 10px;
+       
+    }
+    a{
+            font-family: Verdana;
+            font-size: 20px;
+            font-weight: 600;
+        }
+</style>
+<body>
+    <div class="f1"><img src="forma-o-inicial-de-agentes-comunit-rios-de-sa-de.jpg" alt=""></div><br>
+    <a style="background-color: #0060a0; color: white;
+            padding: 8px; border-radius: 10px;" href="index4.html">Começar o Dia</a><br><br>
+    <div class="container">
+        <h1>Visitas Familiar</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Data</th>
+                    <th>Visitas Sim</th>
+                    <th>Visitas Não</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Segunda</td>
+                    <td><input type="date" id="segunda-data" /></td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-1"> 
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-2"> 
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-3"> 
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-4"> 
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-5"> 
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-6"> 
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-7"> 
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-8"> 
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-9"> 
+                            <input type="checkbox" class="checkbox-sim" id="segunda-sim-10"> 
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-1"> 
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-2"> 
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-3"> 
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-4"> 
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-5"> 
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-6"> 
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-7"> 
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-8"> 
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-9"> 
+                            <input type="checkbox" class="checkbox-nao" id="segunda-nao-10"> 
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Terça</td>
+                    <td><input type="date" id="terca-data" /></td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-1"> 
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-2"> 
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-3"> 
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-4"> 
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-5"> 
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-6"> 
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-7"> 
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-8"> 
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-9"> 
+                            <input type="checkbox" class="checkbox-sim" id="terca-sim-10"> 
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-1"> 
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-2"> 
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-3"> 
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-4"> 
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-5"> 
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-6"> 
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-7"> 
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-8"> 
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-9"> 
+                            <input type="checkbox" class="checkbox-nao" id="terca-nao-10"> 
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quarta</td>
+                    <td><input type="date" id="quarta-data" /></td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-1"> 
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-2"> 
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-3"> 
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-4"> 
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-5"> 
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-6"> 
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-7"> 
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-8"> 
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-9"> 
+                            <input type="checkbox" class="checkbox-sim" id="quarta-sim-10"> 
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-1">
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-2">
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-3">
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-4">
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-5">
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-6">
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-7">
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-8">
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-9">
+                            <input type="checkbox" class="checkbox-nao" id="quarta-nao-10">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quinta</td>
+                    <td><input type="date" id="quinta-data" /></td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-1">
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-2"> 
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-3"> 
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-4"> 
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-5"> 
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-6"> 
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-7"> 
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-8"> 
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-9"> 
+                            <input type="checkbox" class="checkbox-sim" id="quinta-sim-10"> 
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-1"> 
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-2"> 
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-3"> 
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-4"> 
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-5"> 
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-6"> 
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-7"> 
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-8"> 
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-9"> 
+                            <input type="checkbox" class="checkbox-nao" id="quinta-nao-10"> 
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sexta</td>
+                    <td><input type="date" id="sexta-data" /></td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-1"> 
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-2"> 
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-3"> 
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-4"> 
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-5"> 
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-6"> 
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-7"> 
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-8"> 
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-9"> 
+                            <input type="checkbox" class="checkbox-sim" id="sexta-sim-10"> 
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-1"> 
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-2"> 
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-3"> 
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-4"> 
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-5"> 
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-6"> 
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-7"> 
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-8"> 
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-9"> 
+                            <input type="checkbox" class="checkbox-nao" id="sexta-nao-10"> 
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table><br>
+        <button onclick="resetar()">Resetar</button>
+        <h2>Total de Visitas</h2>
+        <p>Visitas Sim: <span id="total-sim">0</span></p>
+        <p>Visitas Não: <span id="total-nao">0</span></p>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        window.onload = function() {
+            document.getElementById(`segunda-data`).value = localStorage.getItem(`segunda-data`) || '';
+            document.getElementById(`terca-data`).value = localStorage.getItem(`terca-data`) || '';
+            document.getElementById(`quarta-data`).value = localStorage.getItem(`quarta-data`) || '';
+            document.getElementById(`quinta-data`).value = localStorage.getItem(`quinta-data`) || '';
+            document.getElementById(`sexta-data`).value = localStorage.getItem(`sexta-data`) || '';
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = localStorage.getItem(checkbox.id) === 'true';
+                checkbox.addEventListener('change', function() {
+                    localStorage.setItem(this.id, this.checked);
+                    calcularTotal();
+                });
+            });
+
+            calcularTotal();
+        }
+
+        function resetar() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        document.querySelectorAll('input[type="date"]').forEach(input => {
+            input.addEventListener('input', function() {
+                localStorage.setItem(this.id, this.value);
+            });
+        });
+
+        function calcularTotal() {
+            let totalSim = 0;
+            let totalNao = 0;
+
+            document.querySelectorAll('.checkbox-sim:checked').forEach(() => totalSim++);
+            document.querySelectorAll('.checkbox-nao:checked').forEach(() => totalNao++);
+
+            document.getElementById('total-sim').innerText = totalSim;
+            document.getElementById('total-nao').innerText = totalNao;
+        }
+    </script>
+</body>
+</html>

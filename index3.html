@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento de Crianças</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f7ff;
+            text-align: center;
+            color: blue;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: center;
+        }
+        th, td {
+            border: 1px solid #e4e4e4;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        form {
+            margin: 20px auto;
+            display: inline-block;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            text-align: center;
+        }
+        input[type="checkbox"] {
+            width: 25px; /* Aumentando o tamanho do checkbox */
+            height: 25px; 
+            margin: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        img {
+            width: 200px;
+        }
+        .f1 {
+            background-color: #154add;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        a{
+            font-family: Verdana;
+            font-size: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<div class="f1"><img src="forma-o-inicial-de-agentes-comunit-rios-de-sa-de.jpg" alt=""></div>
+<a href="index4.html">Voltar ao início</a>
+<h1>Acompanhamento de Crianças</h1>
+<form id="formulario">
+    <label for="nome">Nome da Criança:</label>
+    <input type="text" id="nome" required>
+    
+    <label for="idade">Idade:</label>
+    <input type="number" id="idade" required>
+    
+    <label style="font-size: 25px;">Vacinas Recebidas:</label><br>
+
+    <input type="checkbox" id="vacina1" value="Vacina A">
+    <label for="vacina1">Vacina A</label>
+    <input type="checkbox" id="vacina2" value="Vacina B">
+    <label for="vacina2">Vacina B</label>
+    <input type="checkbox" id="vacina3" value="Vacina C">
+    <label for="vacina3">Vacina C</label>
+    
+    <button type="submit">Salvar Informações</button>
+    
+</form>
+
+<h2>Lista de Crianças Acompanhadas</h2>
+<table id="tabela">
+    <tr>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Vacinas Recebidas</th>
+        <th>Ações</th>
+    </tr>
+</table><br>
+<button type="button" id="salvarTabela">Salvar Tabela como PNG</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+    const tabela = document.getElementById('tabela');
+
+    // Carregar dados do localStorage
+    window.onload = function() {
+        const dados = JSON.parse(localStorage.getItem('crianças')) || [];
+        dados.forEach(crianca => adicionarLinha(crianca.nome, crianca.idade, crianca.vacinas));
+    };
+
+    document.getElementById('formulario').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const nome = document.getElementById('nome').value;
+        const idade = document.getElementById('idade').value;
+        const vacinas = [];
+        
+        if (document.getElementById('vacina1').checked) vacinas.push(document.getElementById('vacina1').value);
+        if (document.getElementById('vacina2').checked) vacinas.push(document.getElementById('vacina2').value);
+        if (document.getElementById('vacina3').checked) vacinas.push(document.getElementById('vacina3').value);
+        
+        adicionarLinha(nome, idade, vacinas);
+        
+        const dados = JSON.parse(localStorage.getItem('crianças')) || [];
+        dados.push({ nome, idade, vacinas });
+        localStorage.setItem('crianças', JSON.stringify(dados));
+        
+        document.getElementById('formulario').reset();
+    });
+
+    function adicionarLinha(nome, idade, vacinas) {
+        const novaLinha = tabela.insertRow();
+        
+        const celulaNome = novaLinha.insertCell(0);
+        const celulaIdade = novaLinha.insertCell(1);
+        const celulaVacinas = novaLinha.insertCell(2);
+        const celulaAcoes = novaLinha.insertCell(3);
+        
+        celulaNome.textContent = nome;
+        celulaIdade.textContent = idade;
+        celulaVacinas.textContent = vacinas.join(', ') || 'Nenhuma';
+        
+        const botaoEditar = document.createElement('button');
+        botaoEditar.textContent = 'Editar';
+        botaoEditar.onclick = function() {
+            document.getElementById('nome').value = nome;
+            document.getElementById('idade').value = idade;
+            document.getElementById('vacina1').checked = vacinas.includes('Vacina A');
+            document.getElementById('vacina2').checked = vacinas.includes('Vacina B');
+            document.getElementById('vacina3').checked = vacinas.includes('Vacina C');
+            tabela.deleteRow(novaLinha.rowIndex);
+            removerDados(nome);
+        };
+        
+        const botaoApagar = document.createElement('button');
+        botaoApagar.textContent = 'Apagar';
+        botaoApagar.onclick = function() {
+            tabela.deleteRow(novaLinha.rowIndex);
+            removerDados(nome);
+        };
+        
+        celulaAcoes.appendChild(botaoEditar);
+        celulaAcoes.appendChild(botaoApagar);
+    }
+
+    function removerDados(nome) {
+        let dados = JSON.parse(localStorage.getItem('crianças')) || [];
+        dados = dados.filter(crianca => crianca.nome !== nome);
+        localStorage.setItem('crianças', JSON.stringify(dados));
+    }
+
+    document.getElementById('salvarTabela').addEventListener('click', function() {
+        html2canvas(tabela).then(function(canvas) {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'tabela_criancas.png';
+            link.click();
+        });
+    });
+</script>
+
+</body>
+</html>
